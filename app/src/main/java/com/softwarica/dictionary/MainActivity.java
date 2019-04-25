@@ -19,14 +19,6 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-//    public static final String countries[] = {
-//            "Nepal", "Kathmandu",
-//            "India", "Dehli",
-//            "China", "Beijing",
-//            "USA", "D.C.",
-//            "Uk", "London",
-//            "Canada", "Ottawa"
-//    };
     private ListView lstDictionary;
 
     private Map<String,String> dictionary;
@@ -39,18 +31,15 @@ public class MainActivity extends AppCompatActivity {
         lstDictionary = findViewById(R.id.lstDictionary);
 
         dictionary = new HashMap<>();
-//        for (int i=0; i<countries.length; i+=2){
-//            dictionary.put(countries[i],countries[i+1]);
-//        }
 
         readFromFile();
 
-        ArrayAdapter countryAdapter = new ArrayAdapter<>(
+        ArrayAdapter dictionaryAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
                 new ArrayList<String>(dictionary.keySet())
         );
-        lstDictionary.setAdapter(countryAdapter);
+        lstDictionary.setAdapter(dictionaryAdapter);
 
         lstDictionary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

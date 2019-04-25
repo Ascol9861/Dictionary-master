@@ -17,7 +17,7 @@ public class CapitalActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
         if(bundle!=null){
-            String capital = bundle.getString("capital");
+            String capital = bundle.getString("Meaning");
             tvMessage = findViewById(R.id.tv_message);
             tvMessage.setText(capital);
         }
