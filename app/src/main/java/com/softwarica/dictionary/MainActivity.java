@@ -15,14 +15,14 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String countries[] = {
-            "Nepal", "Kathmandu",
-            "India", "Dehli",
-            "China", "Beijing",
-            "USA", "D.C.",
-            "Uk", "London",
-            "Canada", "Ottawa"
-    };
+//    public static final String countries[] = {
+//            "Nepal", "Kathmandu",
+//            "India", "Dehli",
+//            "China", "Beijing",
+//            "USA", "D.C.",
+//            "Uk", "London",
+//            "Canada", "Ottawa"
+//    };
 
     private Map<String,String> dictionary;
 
