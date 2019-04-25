@@ -9,6 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 //            "Uk", "London",
 //            "Canada", "Ottawa"
 //    };
+    private ListView lstDictionary;
 
     private Map<String,String> dictionary;
 
@@ -31,30 +36,48 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView country = findViewById(R.id.country);
+        lstDictionary = findViewById(R.id.lstDictionary);
 
         dictionary = new HashMap<>();
-        for (int i=0; i<countries.length; i+=2){
-            dictionary.put(countries[i],countries[i+1]);
-        }
+//        for (int i=0; i<countries.length; i+=2){
+//            dictionary.put(countries[i],countries[i+1]);
+//        }
+
+        readFromFile();
 
         ArrayAdapter countryAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
                 new ArrayList<String>(dictionary.keySet())
         );
-        country.setAdapter(countryAdapter);
+        lstDictionary.setAdapter(countryAdapter);
 
-        country.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lstDictionary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String desa = parent.getItemAtPosition(position).toString();
-                String capital = dictionary.get(desa);
+                String key = parent.getItemAtPosition(position).toString();
+                String meaning = dictionary.get(key);
 
                 Intent intent = new Intent(MainActivity.this,CapitalActivity.class);
-                intent.putExtra("capital",capital);
+                intent.putExtra("Meaning",meaning);
                 startActivity(intent);
             }
         });
+    }
+
+    private void readFromFile(){
+        try{
+            FileInputStream fos = openFileInput("words.txt");
+            InputStreamReader isr = new InputStreamReader(fos);
+            BufferedReader br = new BufferedReader(isr);
+            String line="";
+            while ((line=br.readLine()) != null){
+                String[] parts = line.split("->");
+                dictionary.put(parts[0], parts[1]);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
